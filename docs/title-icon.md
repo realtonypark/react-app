@@ -1,0 +1,1 @@
+Edit index.html to change the app title to “CS Course Scheduler” and the favicon to “public/icon.svg”.

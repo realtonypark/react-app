@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="72" fill="#fff7e8"/>
+  <path d="M32 224 256 64l224 160v224H32z" fill="#e9bd8d"/>
+  <path d="M16 232 256 56l240 176-16 24-224-160L32 256z" fill="#ef1232"/>
+  <path d="M256 56v-32" stroke="#5d536d" stroke-width="18" stroke-linecap="round"/>
+  <path d="M265 28h76l-18 28 18 28h-76z" fill="#ff4b1f"/>
+  <path d="M204 448V360q0-24 24-24h56q24 0 24 24v88" fill="#95655d"/>
+  <path d="M216 360h80" stroke="#44bde8" stroke-width="16"/>
+  <path d="M56 448h400" stroke="#5d536d" stroke-width="18" stroke-linecap="round"/>
+  <g fill="#5d536d">
+    <rect x="64" y="296" width="64" height="68" rx="12"/>
+    <rect x="144" y="296" width="64" height="68" rx="12"/>
+    <rect x="304" y="296" width="64" height="68" rx="12"/>
+    <rect x="384" y="296" width="64" height="68" rx="12"/>
+  </g>
+  <g fill="#44bde8">
+    <path d="M80 320h32v12H80zM80 344h32v8H80z"/>
+    <path d="M160 320h32v12h-32zM160 344h32v8h-32z"/>
+    <path d="M320 320h32v12h-32zM320 344h32v8h-32z"/>
+    <path d="M400 320h32v12h-32zM400 344h32v8h-32z"/>
+  </g>
+</svg>
