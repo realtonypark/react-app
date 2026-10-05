@@ -1,15 +1,8 @@
 @import "tailwindcss";
 
 body {
-  margin: 8px;
-  color: #000;
-  font-family: serif;
-}
-
-h1 {
-  margin-block: 0.67em;
-  font-size: 2em;
-  font-weight: bold;
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, sans-serif;
 }
 
 ul {

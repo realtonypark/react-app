@@ -35,14 +35,21 @@ const schedules = {
 const App = () => {
   const schedule = schedules['CS-2018-2019'];
   return (
-    <main>
-      <h1>{schedule.title}</h1>
-      <ul>
+    <main className="min-h-screen bg-stone-50 px-8 py-10 text-stone-950">
+      <h1 className="mb-12 text-3xl font-semibold tracking-tight">{schedule.title}</h1>
+      <ul className="grid w-full grid-cols-4 gap-3">
         {Object.keys(schedule.courses).map((key) => {
           const course = schedule.courses[key as keyof typeof schedule.courses];
           return (
-            <li key={key}>
-              {course.term} CS {course.number}: {course.title}
+            <li
+              key={key}
+              className="flex min-h-[204px] min-w-0 flex-col rounded-md border border-stone-300 bg-white px-6 py-6 shadow-sm"
+            >
+              <h2 className="text-xl font-medium leading-tight">
+                {course.term} CS {course.number}
+              </h2>
+              <p className="mt-2 flex-1 text-[15px] leading-[1.4] text-stone-800">{course.title}</p>
+              <p className="mt-4 border-t border-stone-300 pt-3 text-sm text-stone-700">{course.meets}</p>
             </li>
           );
         })}
