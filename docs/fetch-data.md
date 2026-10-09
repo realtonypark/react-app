@@ -1,0 +1,1 @@
+Delete the static schedule data in App.tsx and replace it with code to fetch a list of courses from external source: https://courses.cs.northwestern.edu/394/guides/data/cs-courses-firestore.php
