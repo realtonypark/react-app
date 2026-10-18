@@ -11,7 +11,7 @@ export const TermSelector = ({
   selectedTerm,
   onTermChange,
 }: TermSelectorProps) => (
-  <fieldset className="mb-10">
+  <fieldset>
     <legend className="mb-3 text-sm font-medium uppercase tracking-[0.18em] text-stone-600">
       Show classes for
     </legend>
