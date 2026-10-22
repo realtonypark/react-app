@@ -1,0 +1,26 @@
+docs/time-conflicts.md
+  h_05e5164a29872e 1-7
+src/components/CourseList.tsx
+  h_05e5164a29872e 3,21,36,44-46,52-55,57-59,73-77
+src/components/TermPage.test.tsx
+  h_05e5164a29872e 1-36
+src/components/TermPage.tsx
+  h_05e5164a29872e 7,19-32
+src/utils/timeConflicts.js
+  h_05e5164a29872e 1-44
+src/utils/timeConflicts.test.js
+  h_05e5164a29872e 1-51
+tsconfig.app.json
+  h_05e5164a29872e 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4912ff8afb9fa22f1654a72e92c87af7a2290d2c",
+  "prompts": {},
+  "humans": {
+    "h_05e5164a29872e": {
+      "author": "realtonypark <realtonypark@gmail.com>"
+    }
+  }
+}
