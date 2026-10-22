@@ -1,5 +1,6 @@
 import type { Course } from '../services/courseService';
 import type { Term } from '../types/course';
+import { hasTimeConflict } from '../utils/timeConflicts';
 
 interface CourseListProps {
   courses: Record<string, Course>;
@@ -17,6 +18,7 @@ export const CourseList = ({
   const filteredCourses = Object.keys(courses).filter(
     (key) => courses[key].term === selectedTerm,
   );
+  const selectedCourses = selectedClasses.map((key) => courses[key]);
 
   if (filteredCourses.length === 0) {
     return (
@@ -31,6 +33,7 @@ export const CourseList = ({
       {filteredCourses.map((key) => {
         const course = courses[key];
         const isSelected = selectedClasses.indexOf(key) !== -1;
+        const isConflicting = !isSelected && hasTimeConflict(course, selectedCourses);
 
         return (
           <li
@@ -38,15 +41,22 @@ export const CourseList = ({
             className={`min-w-0 rounded-md border shadow-sm transition-colors ${
               isSelected
                 ? 'border-emerald-600 bg-emerald-50'
-                : 'border-stone-300 bg-white'
+                : isConflicting
+                  ? 'border-stone-200 bg-stone-100'
+                  : 'border-stone-300 bg-white'
             }`}
           >
             <button
               type="button"
               aria-pressed={isSelected}
-              aria-label={`${course.term} CS ${course.number}: ${course.title}`}
+              aria-label={`${course.term} CS ${course.number}: ${course.title}${
+                isConflicting ? ', time conflict with a selected class' : ''
+              }`}
+              disabled={isConflicting}
               onClick={() => onClassToggle(key)}
-              className="flex min-h-[204px] w-full flex-col px-6 py-6 text-left"
+              className={`flex min-h-[204px] w-full flex-col px-6 py-6 text-left ${
+                isConflicting ? 'cursor-not-allowed opacity-40' : ''
+              }`}
             >
               <span className="flex items-start justify-between gap-3">
                 <h2 className="text-xl font-medium leading-tight">
@@ -58,6 +68,11 @@ export const CourseList = ({
                     className="text-xl font-bold text-emerald-700"
                   >
                     ✓
+                  </span>
+                )}
+                {isConflicting && (
+                  <span aria-hidden="true" className="text-xl font-bold text-stone-500">
+                    ✕
                   </span>
                 )}
               </span>

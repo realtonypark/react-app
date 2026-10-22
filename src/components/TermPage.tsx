@@ -4,6 +4,7 @@ import type { Term } from '../types/course';
 import { CourseList } from './CourseList';
 import { CoursePlan } from './CoursePlan';
 import { TermSelector } from './TermSelector';
+import { hasTimeConflict } from '../utils/timeConflicts';
 
 interface TermPageProps {
   schedule: Schedule;
@@ -15,11 +16,20 @@ export const TermPage = ({ schedule }: TermPageProps) => {
   const [isPlanOpen, setIsPlanOpen] = useState(false);
 
   const toggleClass = (courseKey: string) => {
-    setSelectedClasses((currentSelectedClasses) =>
-      currentSelectedClasses.indexOf(courseKey) !== -1
-        ? currentSelectedClasses.filter((key) => key !== courseKey)
-        : [...currentSelectedClasses, courseKey],
-    );
+    setSelectedClasses((currentSelectedClasses) => {
+      if (currentSelectedClasses.indexOf(courseKey) !== -1) {
+        return currentSelectedClasses.filter((key) => key !== courseKey);
+      }
+
+      const course = schedule.courses[courseKey];
+      const selectedCourses = currentSelectedClasses.map(
+        (key) => schedule.courses[key],
+      );
+
+      return hasTimeConflict(course, selectedCourses)
+        ? currentSelectedClasses
+        : [...currentSelectedClasses, courseKey];
+    });
   };
 
   return (
