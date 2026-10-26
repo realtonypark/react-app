@@ -33,4 +33,20 @@ describe('TermPage time conflicts', () => {
     expect(card('Alpha')).toHaveAttribute('aria-pressed', 'false');
     expect(card('Beta')).not.toBeDisabled();
   });
+
+  it('opens a course form with the selected course data and cancels back to the list', () => {
+    render(<TermPage schedule={schedule} />);
+
+    fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
+
+    expect(screen.getByRole('heading', { name: 'Fall CS 101' })).toBeVisible();
+    expect(screen.getByLabelText('Title')).toHaveValue('Alpha');
+    expect(screen.getByLabelText('Meeting times')).toHaveValue('MWF 9:00-9:50');
+    expect(screen.queryByRole('button', { name: 'Course plan' })).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+
+    expect(screen.getByRole('button', { name: /Fall CS 101: Alpha/ })).toBeVisible();
+    expect(screen.queryByLabelText('Meeting times')).not.toBeInTheDocument();
+  });
 });

@@ -7,6 +7,7 @@ interface CourseListProps {
   selectedTerm: Term;
   selectedClasses: string[];
   onClassToggle: (courseKey: string) => void;
+  onEditCourse: (courseKey: string) => void;
 }
 
 export const CourseList = ({
@@ -14,6 +15,7 @@ export const CourseList = ({
   selectedTerm,
   selectedClasses,
   onClassToggle,
+  onEditCourse,
 }: CourseListProps) => {
   const filteredCourses = Object.keys(courses).filter(
     (key) => courses[key].term === selectedTerm,
@@ -38,7 +40,7 @@ export const CourseList = ({
         return (
           <li
             key={key}
-            className={`min-w-0 rounded-md border shadow-sm transition-colors ${
+            className={`flex min-w-0 flex-col rounded-md border shadow-sm transition-colors ${
               isSelected
                 ? 'border-emerald-600 bg-emerald-50'
                 : isConflicting
@@ -82,6 +84,13 @@ export const CourseList = ({
               <p className="mt-4 border-t border-stone-300 pt-3 text-sm text-stone-700">
                 {course.meets}
               </p>
+            </button>
+            <button
+              type="button"
+              onClick={() => onEditCourse(key)}
+              className="mx-6 mb-5 rounded-md border border-stone-300 px-3 py-2 text-sm font-medium text-stone-800 transition-colors hover:bg-stone-100"
+            >
+              Edit
             </button>
           </li>
         );

@@ -1,0 +1,3 @@
+Add a form that contains text input fields for the title and meeting times for a course. Then add a link or button on each course card to open the edit form, populated with that course's data.
+
+Don't worry about form submission. There should be a Cancel button, but no Submit button. The form should have an onSubmit() method that does nothing. Clicking the Cancel button should return the user to the main course list.
