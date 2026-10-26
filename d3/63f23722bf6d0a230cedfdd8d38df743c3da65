@@ -1,0 +1,27 @@
+src/components/TermPage.tsx
+  s_74d93ed2f7e1b0::t_d4a19dc64fb8ea 5,18,40-65
+src/components/CourseList.tsx
+  s_74d93ed2f7e1b0::t_d4a19dc64fb8ea 10,18,43,88-93
+  s_74d93ed2f7e1b0::t_ac83fc6dce8b7d 94
+src/components/TermPage.test.tsx
+  s_74d93ed2f7e1b0::t_4835d36be4ff80 36-51
+src/components/CourseForm.tsx
+  s_74d93ed2f7e1b0::t_d4a19dc64fb8ea 1-9,11-53
+  s_74d93ed2f7e1b0::t_4835d36be4ff80 10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d363f23722bf6d0a230cedfdd8d38df743c3da65",
+  "prompts": {},
+  "sessions": {
+    "s_74d93ed2f7e1b0": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "a8da4062-ee79-4697-9b61-7339e57242a0",
+        "model": "unknown"
+      },
+      "human_author": "realtonypark <realtonypark@gmail.com>"
+    }
+  }
+}
