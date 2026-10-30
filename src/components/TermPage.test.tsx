@@ -49,4 +49,23 @@ describe('TermPage time conflicts', () => {
     expect(screen.getByRole('button', { name: /Fall CS 101: Alpha/ })).toBeVisible();
     expect(screen.queryByLabelText('Meeting times')).not.toBeInTheDocument();
   });
+
+  it('shows field feedback as course form values become invalid', () => {
+    render(<TermPage schedule={schedule} />);
+
+    fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
+    fireEvent.change(screen.getByLabelText('Title'), { target: { value: 'X' } });
+    fireEvent.change(screen.getByLabelText('Meeting times'), {
+      target: { value: 'MWF' },
+    });
+
+    expect(screen.getByText('must contain at least two characters')).toBeVisible();
+    expect(
+      screen.getByText('must contain days and start-end, e.g., MWF 12:00-13:20'),
+    ).toBeVisible();
+    expect(screen.getByRole('textbox', { name: /^Title/ })).toHaveAttribute(
+      'aria-invalid',
+      'true',
+    );
+  });
 });

@@ -1,1 +1,1 @@
-export type Term = 'Fall' | 'Winter' | 'Spring';
+export type Term = 'Fall' | 'Winter' | 'Spring' | 'Summer';
