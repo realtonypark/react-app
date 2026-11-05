@@ -41,6 +41,19 @@ Then in VS Code, tell CoPilot to "Write code to implement the specification in d
 | npm run coverage | Runs the tests, displays code coverage results      |
 
 
+### Firestore data
+
+The deployed app reads schedules from the `schedules` collection in the
+`realtonypark-react-app` Firebase project. To update the initial schedule,
+edit `data/schedule.json` and run:
+
+```sh
+GOOGLE_APPLICATION_CREDENTIALS=/path/to/firebase-service-account.json npm run seed:firestore
+```
+
+The service account is only needed for seeding. The public web app uses the
+Firebase web SDK and can read published schedules without credentials.
+
 ## Folder Structure
 
 ```
