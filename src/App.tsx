@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { fetchCourses, type Schedule } from './services/courseService';
+import { AuthBanner } from './components/AuthBanner';
 import { TermPage } from './components/TermPage';
+import { useAuth } from './hooks/useAuth';
 import './App.css';
 
 const App = () => {
+  const scheduleId = 'CS-2018-2019';
   const [schedule, setSchedule] = useState<Schedule | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { user, isLoading: isAuthLoading } = useAuth();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -14,7 +18,7 @@ const App = () => {
     const loadCourses = async () => {
       try {
         const data = await fetchCourses(controller.signal);
-        const selectedSchedule = data.schedules['CS-2018-2019'];
+        const selectedSchedule = data.schedules[scheduleId];
 
         if (!selectedSchedule) {
           throw new Error('The course schedule was not found.');
@@ -43,21 +47,26 @@ const App = () => {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [scheduleId]);
 
-  if (isLoading) {
-    return <main className="p-8">Loading courses...</main>;
-  }
-
-  if (error) {
-    return <main className="p-8 text-red-700">Error: {error}</main>;
-  }
-
-  if (!schedule) {
-    return <main className="p-8">No courses found.</main>;
-  }
-
-  return <TermPage schedule={schedule} />;
+  return (
+    <>
+      <AuthBanner user={user} />
+      {isLoading || isAuthLoading ? (
+        <main className="p-8">Loading courses...</main>
+      ) : error ? (
+        <main className="p-8 text-red-700">Error: {error}</main>
+      ) : !schedule ? (
+        <main className="p-8">No courses found.</main>
+      ) : (
+        <TermPage
+          schedule={schedule}
+          scheduleId={scheduleId}
+          canEdit={user !== null}
+        />
+      )}
+    </>
+  );
 };
 
 export default App;

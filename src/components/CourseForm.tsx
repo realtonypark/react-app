@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import type { Course } from '../services/courseService';
 import {
   courseResolver,
@@ -9,16 +9,48 @@ import {
 interface CourseFormProps {
   course: Course;
   onCancel: () => void;
+  onSubmit: (course: Course) => Promise<void>;
 }
 
-export const CourseForm = ({ course, onCancel }: CourseFormProps) => {
-  const [values, setValues] = useState<CourseFormData>(courseToFormData(course));
+export const CourseForm = ({ course, onCancel, onSubmit }: CourseFormProps) => {
+  const initialValues = courseToFormData(course);
+  const [values, setValues] = useState<CourseFormData>(initialValues);
   const [errors, setErrors] = useState(() => courseResolver(courseToFormData(course)).errors);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const updateField = (field: keyof CourseFormData, value: string) => {
     const nextValues = { ...values, [field]: value };
     setValues(nextValues);
     setErrors(courseResolver(nextValues).errors);
+    setSubmitError(null);
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const result = courseResolver(values);
+    setErrors(result.errors);
+    const hasChanges = Object.keys(initialValues).some((field) => {
+      const key = field as keyof CourseFormData;
+      return initialValues[key] !== values[key];
+    });
+
+    if (Object.keys(result.errors).length > 0 || !hasChanges) {
+      if (Object.keys(result.errors).length === 0) {
+        setSubmitError('Change at least one value before submitting.');
+      }
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+    try {
+      await onSubmit({ ...course, ...values });
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'Unable to save course.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const fieldClassName =
@@ -26,7 +58,7 @@ export const CourseForm = ({ course, onCancel }: CourseFormProps) => {
 
   return (
     <form
-      onSubmit={() => {}}
+      onSubmit={(event) => void handleSubmit(event)}
       className="mx-auto max-w-xl rounded-lg border border-stone-200 bg-white p-8 shadow-sm"
     >
       <div className="mb-8">
@@ -117,12 +149,26 @@ export const CourseForm = ({ course, onCancel }: CourseFormProps) => {
         </label>
       </div>
 
+      {submitError && (
+        <p role="alert" className="mt-5 text-sm text-red-700">
+          {submitError}
+        </p>
+      )}
+
       <button
         type="button"
         onClick={onCancel}
+        disabled={isSubmitting}
         className="mt-8 rounded-lg border border-stone-300 px-5 py-2 text-sm font-medium text-stone-800 transition-colors hover:bg-stone-100"
       >
         Cancel
+      </button>
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="ml-3 mt-8 rounded-lg bg-stone-950 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-stone-800 disabled:opacity-50"
+      >
+        {isSubmitting ? 'Saving...' : 'Submit'}
       </button>
     </form>
   );

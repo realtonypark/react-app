@@ -1,5 +1,6 @@
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from './firebase';
+import { ref, update } from 'firebase/database';
+import { db, realtimeDb } from './firebase';
 
 export interface Course {
   term: string;
@@ -74,4 +75,12 @@ export const fetchCourses = async (signal?: AbortSignal): Promise<CourseData> =>
   });
 
   return { schedules };
+};
+
+export const saveCourse = async (
+  scheduleId: string,
+  courseKey: string,
+  course: Course,
+): Promise<void> => {
+  await update(ref(realtimeDb, `schedules/${scheduleId}/courses/${courseKey}`), course);
 };

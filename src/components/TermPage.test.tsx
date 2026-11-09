@@ -35,7 +35,7 @@ describe('TermPage time conflicts', () => {
   });
 
   it('opens a course form with the selected course data and cancels back to the list', () => {
-    render(<TermPage schedule={schedule} />);
+    render(<TermPage schedule={schedule} canEdit />);
 
     fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
 
@@ -51,7 +51,7 @@ describe('TermPage time conflicts', () => {
   });
 
   it('shows field feedback as course form values become invalid', () => {
-    render(<TermPage schedule={schedule} />);
+    render(<TermPage schedule={schedule} canEdit />);
 
     fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
     fireEvent.change(screen.getByLabelText('Title'), { target: { value: 'X' } });
@@ -67,5 +67,11 @@ describe('TermPage time conflicts', () => {
       'aria-invalid',
       'true',
     );
+  });
+
+  it('hides edit controls for signed-out users', () => {
+    render(<TermPage schedule={schedule} />);
+
+    expect(screen.queryByRole('button', { name: 'Edit' })).not.toBeInTheDocument();
   });
 });

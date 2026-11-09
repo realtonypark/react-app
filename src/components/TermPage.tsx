@@ -6,12 +6,20 @@ import { CourseForm } from './CourseForm';
 import { CoursePlan } from './CoursePlan';
 import { TermSelector } from './TermSelector';
 import { hasTimeConflict } from '../utils/timeConflicts';
+import { saveCourse, type Course } from '../services/courseService';
 
 interface TermPageProps {
   schedule: Schedule;
+  scheduleId?: string;
+  canEdit?: boolean;
 }
 
-export const TermPage = ({ schedule }: TermPageProps) => {
+export const TermPage = ({
+  schedule,
+  scheduleId = 'CS-2018-2019',
+  canEdit = false,
+}: TermPageProps) => {
+  const [courses, setCourses] = useState(schedule.courses);
   const [selectedTerm, setSelectedTerm] = useState<Term>('Fall');
   const [selectedClasses, setSelectedClasses] = useState<string[]>([]);
   const [isPlanOpen, setIsPlanOpen] = useState(false);
@@ -23,9 +31,9 @@ export const TermPage = ({ schedule }: TermPageProps) => {
         return currentSelectedClasses.filter((key) => key !== courseKey);
       }
 
-      const course = schedule.courses[courseKey];
+      const course = courses[courseKey];
       const selectedCourses = currentSelectedClasses.map(
-        (key) => schedule.courses[key],
+        (key) => courses[key],
       );
 
       return hasTimeConflict(course, selectedCourses)
@@ -34,13 +42,24 @@ export const TermPage = ({ schedule }: TermPageProps) => {
     });
   };
 
+  const handleCourseSubmit = async (courseKey: string, course: Course) => {
+    if (!canEdit) {
+      throw new Error('You must be signed in to edit course information.');
+    }
+
+    await saveCourse(scheduleId, courseKey, course);
+    setCourses((currentCourses) => ({ ...currentCourses, [courseKey]: course }));
+    setEditingCourseKey(null);
+  };
+
   return (
     <main className="min-h-screen bg-stone-50 px-8 py-10 text-stone-950">
       <h1 className="mb-12 text-3xl font-semibold tracking-tight">{schedule.title}</h1>
-      {editingCourseKey ? (
+      {editingCourseKey && canEdit ? (
         <CourseForm
-          course={schedule.courses[editingCourseKey]}
+          course={courses[editingCourseKey]}
           onCancel={() => setEditingCourseKey(null)}
+          onSubmit={(course) => handleCourseSubmit(editingCourseKey, course)}
         />
       ) : (
         <>
@@ -55,11 +74,12 @@ export const TermPage = ({ schedule }: TermPageProps) => {
             </button>
           </div>
           <CourseList
-            courses={schedule.courses}
+            courses={courses}
             selectedTerm={selectedTerm}
             selectedClasses={selectedClasses}
             onClassToggle={toggleClass}
             onEditCourse={setEditingCourseKey}
+            canEdit={canEdit}
           />
         </>
       )}
