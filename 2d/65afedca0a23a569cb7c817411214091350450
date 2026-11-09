@@ -1,0 +1,74 @@
+src/App.tsx
+  s_e6800e72134a5b::t_5c0005d594dc7f 3,5,13,52-69
+  s_43766e1930b325::t_cef3435067d015 9,21,50
+docs/authentication.md
+  s_e6800e72134a5b::t_5c0005d594dc7f 11-36
+  s_e6800e72134a5b::t_b9f6a7f979eb42 8-10
+  s_e6800e72134a5b::t_e4ca8d238a8878 1-7
+src/services/courseService.ts
+  s_43766e1930b325::t_1f0f9f8aded9ba 2-3,79-85
+  s_43766e1930b325::t_2694db0d4c2bfe 86
+src/services/firebase.ts
+  s_43766e1930b325::t_1f0f9f8aded9ba 3,13,19
+  s_e6800e72134a5b::t_5c0005d594dc7f 2,20
+src/components/CourseForm.test.tsx
+  s_43766e1930b325::t_90acd0c0c1d3d4 1-57
+src/hooks/useAuth.ts
+  s_e6800e72134a5b::t_5c0005d594dc7f 1-22
+src/components/CourseForm.tsx
+  s_43766e1930b325::t_ef0df4ba3f1368 1,29,33-36,38-39,48
+  s_43766e1930b325::t_1f0f9f8aded9ba 12,15-17,19-20,26,30-32,37,40-47,49-53,61,152-157,161,166-171
+  s_43766e1930b325::t_81dee54efd49de 27-28
+  s_43766e1930b325::t_1b06f61a4cebaf 172
+src/components/TermPage.test.tsx
+  s_e6800e72134a5b::t_732d21554ff3d6 38,54,71-75
+  s_e6800e72134a5b::t_213ffbeb40afd6 76
+src/components/TermPage.tsx
+  s_43766e1930b325::t_1f0f9f8aded9ba 13,22,34,36,45,50-54,60,62,77
+  s_e6800e72134a5b::t_5c0005d594dc7f 14,17-21,46-49,58,82
+  s_43766e1930b325::t_ef0df4ba3f1368 9
+src/components/AuthBanner.tsx
+  s_e6800e72134a5b::t_5c0005d594dc7f 1-65
+firebase.json
+  s_e6800e72134a5b::t_5c0005d594dc7f 14-16
+database.rules.json
+  s_e6800e72134a5b::t_5c0005d594dc7f 1-6
+src/components/CourseList.tsx
+  s_e6800e72134a5b::t_5c0005d594dc7f 11,20,90-98
+src/services/authService.ts
+  s_e6800e72134a5b::t_5c0005d594dc7f 1-22
+docs/form-submission.md
+  s_04bbc6199a4faa::t_8e3f3787910220 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2d65afedca0a23a569cb7c817411214091350450",
+  "prompts": {},
+  "sessions": {
+    "s_04bbc6199a4faa": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "8a4f5334-96d3-4a1b-8a2c-3f85d88fc929",
+        "model": "unknown"
+      },
+      "human_author": "realtonypark <realtonypark@gmail.com>"
+    },
+    "s_43766e1930b325": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "58442c29-b80b-41c8-8645-ba4ce31df80f",
+        "model": "unknown"
+      },
+      "human_author": "realtonypark <realtonypark@gmail.com>"
+    },
+    "s_e6800e72134a5b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "4ca33fec-403e-4dfe-b5c3-72c3251bffb1",
+        "model": "unknown"
+      },
+      "human_author": "realtonypark <realtonypark@gmail.com>"
+    }
+  }
+}
