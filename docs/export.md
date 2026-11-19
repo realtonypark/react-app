@@ -1,0 +1,1 @@
+Implement a feature to export the schedule in .txt format. List of courses. Make an export button on top right and when clicked, the txt file should be downloaded.

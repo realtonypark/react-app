@@ -45,7 +45,9 @@ export const AuthBanner = ({ user }: AuthBannerProps) => {
           Signed in as <span className="font-medium">{user.displayName ?? user.email}</span>
         </p>
       ) : (
-        <p className="text-stone-700">Sign in to edit course information.</p>
+        <p className="text-stone-700">
+          Sign in to access administrator course editing.
+        </p>
       )}
       <button
         type="button"

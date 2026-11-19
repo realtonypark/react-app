@@ -3,6 +3,7 @@ import { fetchCourses, type Schedule } from './services/courseService';
 import { AuthBanner } from './components/AuthBanner';
 import { TermPage } from './components/TermPage';
 import { useAuth } from './hooks/useAuth';
+import { useAdminStatus } from './hooks/useAdminStatus';
 import './App.css';
 
 const App = () => {
@@ -11,6 +12,11 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { user, isLoading: isAuthLoading } = useAuth();
+  const {
+    isAdmin,
+    isLoading: isAdminLoading,
+    error: adminError,
+  } = useAdminStatus(user);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -52,17 +58,19 @@ const App = () => {
   return (
     <>
       <AuthBanner user={user} />
-      {isLoading || isAuthLoading ? (
+      {isLoading || isAuthLoading || isAdminLoading ? (
         <main className="p-8">Loading courses...</main>
       ) : error ? (
         <main className="p-8 text-red-700">Error: {error}</main>
+      ) : adminError ? (
+        <main className="p-8 text-red-700">Error: {adminError}</main>
       ) : !schedule ? (
         <main className="p-8">No courses found.</main>
       ) : (
         <TermPage
           schedule={schedule}
           scheduleId={scheduleId}
-          canEdit={user !== null}
+          canEdit={isAdmin}
         />
       )}
     </>

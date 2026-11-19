@@ -1,28 +1,42 @@
 Add authentication
-Change the app so that only users who are authenticated, i.e., signed in, can edit class information. This involves the following changes on the back-end Firebase side:
+Change the app so that only authenticated administrators can edit class
+information. This involves the following changes on the back-end Firebase side:
 
 Enabling authentication services for the project on the Firebase web console
-Add security rules to the database to allow write-access only for authenticated users
+Add security rules to the database to allow write-access only for authenticated
+administrators
 The following changes need to be made on the front-end React web app side:
 
 Adding code to the app to track the current authenticated user, if any
 Adding code to the app to let a user sign in and out
-Adding code to show a course edit button on each course card only to authenticated users
+Adding code to show a course edit button on each course card only to authenticated administrators
 The best place for a button for signing in or out would be a banner component that appears on all screens.
 ## Firebase setup
 
 1. In the Firebase console, open **Authentication > Sign-in method** and enable
    the **Google** provider for the project.
-2. Deploy the Realtime Database rules from this repository:
+2. Add each administrator's Firebase Authentication UID under `admins` in the
+   Realtime Database:
+
+   ```json
+   {
+     "admins": {
+       "firebase-auth-user-uid": true
+     }
+   }
+   ```
+
+3. Deploy the Realtime Database rules from this repository:
 
    ```sh
    firebase deploy --only database
    ```
 
    The rules allow anyone to read course data, but require an authenticated
-   user for every write.
+   user whose `admins/{uid}` value is `true` for every write. Administrator
+   records cannot be written by clients.
 
-3. If Firestore rules have changed, deploy them with:
+4. If Firestore rules have changed, deploy them with:
 
    ```sh
    firebase deploy --only firestore:rules
@@ -31,6 +45,6 @@ The best place for a button for signing in or out would be a banner component th
 ## App behavior
 
 The banner on every screen lets users sign in with Google or sign out. Course
-cards show an **Edit** button only while a user is signed in. These frontend
-checks improve the user experience, but the Firebase security rules are the
-authoritative protection for course data.
+cards show an **Edit** button only while the signed-in user's administrator
+record is `true`. These frontend checks improve the user experience, but the
+Firebase security rules are the authoritative protection for course data.

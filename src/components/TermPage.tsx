@@ -7,6 +7,7 @@ import { CoursePlan } from './CoursePlan';
 import { TermSelector } from './TermSelector';
 import { hasTimeConflict } from '../utils/timeConflicts';
 import { saveCourse, type Course } from '../services/courseService';
+import { downloadScheduleText } from '../utils/exportSchedule';
 
 interface TermPageProps {
   schedule: Schedule;
@@ -44,7 +45,7 @@ export const TermPage = ({
 
   const handleCourseSubmit = async (courseKey: string, course: Course) => {
     if (!canEdit) {
-      throw new Error('You must be signed in to edit course information.');
+      throw new Error('You must be an administrator to edit course information.');
     }
 
     await saveCourse(scheduleId, courseKey, course);
@@ -52,9 +53,28 @@ export const TermPage = ({
     setEditingCourseKey(null);
   };
 
+  const handleExport = () => {
+    const selectedCourses = selectedClasses
+      .map((courseKey) => courses[courseKey])
+      .filter((course): course is Course => Boolean(course));
+
+    downloadScheduleText(schedule.title, selectedCourses);
+  };
+
   return (
     <main className="min-h-screen bg-stone-50 px-8 py-10 text-stone-950">
-      <h1 className="mb-12 text-3xl font-semibold tracking-tight">{schedule.title}</h1>
+      <div className="mb-12 flex items-start justify-between gap-4">
+        <h1 className="text-3xl font-semibold tracking-tight">{schedule.title}</h1>
+        {!editingCourseKey && (
+          <button
+            type="button"
+            onClick={handleExport}
+            className="shrink-0 rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-900 shadow-sm transition-colors hover:border-stone-400 hover:bg-stone-100"
+          >
+            Export .txt
+          </button>
+        )}
+      </div>
       {editingCourseKey && canEdit ? (
         <CourseForm
           course={courses[editingCourseKey]}

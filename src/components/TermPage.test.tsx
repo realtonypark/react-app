@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import type { Schedule } from '../services/courseService';
 import { TermPage } from './TermPage';
 
@@ -17,6 +17,30 @@ const card = (title: string) =>
   screen.getByRole('button', { name: new RegExp(title) });
 
 describe('TermPage time conflicts', () => {
+  it('exports the selected courses as a text file', () => {
+    const createObjectURL = vi.fn(() => 'blob:test');
+    const revokeObjectURL = vi.fn();
+    Object.defineProperty(URL, 'createObjectURL', {
+      configurable: true,
+      value: createObjectURL,
+    });
+    Object.defineProperty(URL, 'revokeObjectURL', {
+      configurable: true,
+      value: revokeObjectURL,
+    });
+    const click = vi.spyOn(HTMLAnchorElement.prototype, 'click');
+
+    render(<TermPage schedule={schedule} />);
+    fireEvent.click(card('Alpha'));
+    fireEvent.click(screen.getByRole('button', { name: 'Export .txt' }));
+
+    expect(createObjectURL).toHaveBeenCalledOnce();
+    expect(click).toHaveBeenCalledOnce();
+    expect(revokeObjectURL).toHaveBeenCalledWith('blob:test');
+
+    click.mockRestore();
+  });
+
   it('blocks conflicting classes and allows unselecting', () => {
     render(<TermPage schedule={schedule} />);
 
