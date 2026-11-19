@@ -1,0 +1,35 @@
+src/App.tsx
+  s_c94d48a96b0e90::t_a5dcec251f1449 14-16,24-28,67,84-93
+src/components/TermPage.tsx
+  s_c94d48a96b0e90::t_a5dcec251f1449 65,72,91
+src/components/AuthBanner.tsx
+  s_c94d48a96b0e90::t_a5dcec251f1449 42,44,48,56
+src/components/CourseList.tsx
+  s_c94d48a96b0e90::t_0a2c73a3a862a2 29,47,49-50,72,83,86,94
+src/components/CourseForm.tsx
+  s_c94d48a96b0e90::t_0a2c73a3a862a2 57,62,65,75,93,111,131,162,169
+src/components/CoursePlan.tsx
+  s_c94d48a96b0e90::t_0a2c73a3a862a2 21,30,37,42,51
+src/components/TermSelector.tsx
+  s_c94d48a96b0e90::t_a5dcec251f1449 15,18,24-25
+src/index.css
+  s_c94d48a96b0e90::t_a5dcec251f1449 2
+docs/dark-mode
+  s_c94d48a96b0e90::t_696683be296402 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "31dbf6c0e7d31f2ca287c6ca6345ebd9b11359d0",
+  "prompts": {},
+  "sessions": {
+    "s_c94d48a96b0e90": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "aa69b1bb-fef4-4902-862f-3bbbe8e146cd",
+        "model": "unknown"
+      },
+      "human_author": "realtonypark <realtonypark@gmail.com>"
+    }
+  }
+}
