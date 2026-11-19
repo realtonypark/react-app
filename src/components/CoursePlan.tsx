@@ -18,7 +18,7 @@ export const CoursePlan = ({
     <div
       role="dialog"
       aria-label="Course plan"
-      className="w-full max-w-lg rounded-lg bg-white p-8 shadow-xl"
+      className="w-full max-w-lg rounded-lg bg-white p-8 shadow-xl dark:bg-stone-900"
       onClick={(event) => event.stopPropagation()}
     >
       <div className="flex items-start justify-between gap-4">
@@ -27,19 +27,19 @@ export const CoursePlan = ({
           type="button"
           onClick={onClose}
           aria-label="Close course plan"
-          className="rounded-md px-2 py-1 text-sm font-medium text-stone-600 hover:bg-stone-100 hover:text-stone-950"
+          className="rounded-md px-2 py-1 text-sm font-medium text-stone-600 hover:bg-stone-100 hover:text-stone-950 dark:text-stone-300 dark:hover:bg-stone-800 dark:hover:text-white"
         >
           Close ✕
         </button>
       </div>
 
       {selectedClasses.length === 0 ? (
-        <p className="mt-4 text-stone-700">
+        <p className="mt-4 text-stone-700 dark:text-stone-300">
           You have not selected any classes. To select one, click a course card
           in the list below.
         </p>
       ) : (
-        <ul className="mt-4 divide-y divide-stone-200">
+        <ul className="mt-4 divide-y divide-stone-200 dark:divide-stone-700">
           {selectedClasses.map((key) => {
             const course = courses[key];
 
@@ -48,7 +48,7 @@ export const CoursePlan = ({
                 <p className="font-medium">
                   CS {course.number}: {course.title}
                 </p>
-                <p className="mt-1 text-sm text-stone-700">{course.meets}</p>
+                <p className="mt-1 text-sm text-stone-700 dark:text-stone-300">{course.meets}</p>
               </li>
             );
           })}

@@ -1,0 +1,1 @@
+Implement a dark mode for this app. Light mode (current theme) by default, and manually change it to dark mode with the button in the bottom left. Remember the state in the browser.

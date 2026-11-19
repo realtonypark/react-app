@@ -26,7 +26,7 @@ export const CourseList = ({
 
   if (filteredCourses.length === 0) {
     return (
-      <p className="rounded-md border border-dashed border-stone-300 p-8 text-center text-stone-600">
+      <p className="rounded-md border border-dashed border-stone-300 p-8 text-center text-stone-600 dark:border-stone-700 dark:text-stone-400">
         No {selectedTerm.toLowerCase()} classes are available.
       </p>
     );
@@ -44,10 +44,10 @@ export const CourseList = ({
             key={key}
             className={`flex min-w-0 flex-col rounded-md border shadow-sm transition-colors ${
               isSelected
-                ? 'border-emerald-600 bg-emerald-50'
+                ? 'border-emerald-600 bg-emerald-50 dark:bg-emerald-950'
                 : isConflicting
-                  ? 'border-stone-200 bg-stone-100'
-                  : 'border-stone-300 bg-white'
+                  ? 'border-stone-200 bg-stone-100 dark:border-stone-800 dark:bg-stone-900'
+                  : 'border-stone-300 bg-white dark:border-stone-700 dark:bg-stone-900'
             }`}
           >
             <button
@@ -69,7 +69,7 @@ export const CourseList = ({
                 {isSelected && (
                   <span
                     aria-hidden="true"
-                    className="text-xl font-bold text-emerald-700"
+                    className="text-xl font-bold text-emerald-700 dark:text-emerald-400"
                   >
                     ✓
                   </span>
@@ -80,10 +80,10 @@ export const CourseList = ({
                   </span>
                 )}
               </span>
-              <p className="mt-2 flex-1 text-[15px] leading-[1.4] text-stone-800">
+              <p className="mt-2 flex-1 text-[15px] leading-[1.4] text-stone-800 dark:text-stone-200">
                 {course.title}
               </p>
-              <p className="mt-4 border-t border-stone-300 pt-3 text-sm text-stone-700">
+              <p className="mt-4 border-t border-stone-300 pt-3 text-sm text-stone-700 dark:border-stone-700 dark:text-stone-300">
                 {course.meets}
               </p>
             </button>
@@ -91,7 +91,7 @@ export const CourseList = ({
               <button
                 type="button"
                 onClick={() => onEditCourse(key)}
-                className="mx-6 mb-5 rounded-md border border-stone-300 px-3 py-2 text-sm font-medium text-stone-800 transition-colors hover:bg-stone-100"
+                className="mx-6 mb-5 rounded-md border border-stone-300 px-3 py-2 text-sm font-medium text-stone-800 transition-colors hover:bg-stone-100 dark:border-stone-700 dark:text-stone-200 dark:hover:bg-stone-800"
               >
                 Edit
               </button>

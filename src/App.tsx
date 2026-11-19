@@ -11,12 +11,20 @@ const App = () => {
   const [schedule, setSchedule] = useState<Schedule | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isDarkMode, setIsDarkMode] = useState(
+    () => localStorage.getItem('theme') === 'dark',
+  );
   const { user, isLoading: isAuthLoading } = useAuth();
   const {
     isAdmin,
     isLoading: isAdminLoading,
     error: adminError,
   } = useAdminStatus(user);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', isDarkMode);
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -56,7 +64,7 @@ const App = () => {
   }, [scheduleId]);
 
   return (
-    <>
+    <div className="min-h-screen bg-stone-50 text-stone-950 dark:bg-stone-950 dark:text-stone-100">
       <AuthBanner user={user} />
       {isLoading || isAuthLoading || isAdminLoading ? (
         <main className="p-8">Loading courses...</main>
@@ -73,7 +81,16 @@ const App = () => {
           canEdit={isAdmin}
         />
       )}
-    </>
+      <button
+        type="button"
+        onClick={() => setIsDarkMode((currentMode) => !currentMode)}
+        aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+        aria-pressed={isDarkMode}
+        className="fixed bottom-5 left-5 z-20 rounded-full border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-900 shadow-md transition-colors hover:bg-stone-100 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100 dark:hover:bg-stone-700"
+      >
+        {isDarkMode ? '☀️ Light mode' : '🌙 Dark mode'}
+      </button>
+    </div>
   );
 };
 

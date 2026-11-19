@@ -54,15 +54,15 @@ export const CourseForm = ({ course, onCancel, onSubmit }: CourseFormProps) => {
   };
 
   const fieldClassName =
-    'w-full rounded-md border border-stone-300 px-3 py-2 text-stone-950 shadow-sm outline-none focus:border-stone-950 focus:ring-2 focus:ring-stone-200';
+    'w-full rounded-md border border-stone-300 px-3 py-2 text-stone-950 shadow-sm outline-none focus:border-stone-950 focus:ring-2 focus:ring-stone-200 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100 dark:focus:border-stone-300 dark:focus:ring-stone-700';
 
   return (
     <form
       onSubmit={(event) => void handleSubmit(event)}
-      className="mx-auto max-w-xl rounded-lg border border-stone-200 bg-white p-8 shadow-sm"
+      className="mx-auto max-w-xl rounded-lg border border-stone-200 bg-white p-8 shadow-sm dark:border-stone-700 dark:bg-stone-900"
     >
       <div className="mb-8">
-        <p className="text-sm font-medium uppercase tracking-[0.18em] text-stone-600">
+        <p className="text-sm font-medium uppercase tracking-[0.18em] text-stone-600 dark:text-stone-400">
           Edit course
         </p>
         <h2 className="mt-2 text-2xl font-semibold tracking-tight">
@@ -72,7 +72,7 @@ export const CourseForm = ({ course, onCancel, onSubmit }: CourseFormProps) => {
 
       <div className="space-y-5">
         <label className="block">
-          <span className="mb-2 block text-sm font-medium text-stone-800">Title</span>
+          <span className="mb-2 block text-sm font-medium text-stone-800 dark:text-stone-200">Title</span>
           <input
             type="text"
             id="title"
@@ -90,7 +90,7 @@ export const CourseForm = ({ course, onCancel, onSubmit }: CourseFormProps) => {
           )}
         </label>
         <label className="block">
-          <span className="mb-2 block text-sm font-medium text-stone-800">Term</span>
+          <span className="mb-2 block text-sm font-medium text-stone-800 dark:text-stone-200">Term</span>
           <input
             type="text"
             id="term"
@@ -108,7 +108,7 @@ export const CourseForm = ({ course, onCancel, onSubmit }: CourseFormProps) => {
           )}
         </label>
         <label className="block">
-          <span className="mb-2 block text-sm font-medium text-stone-800">
+          <span className="mb-2 block text-sm font-medium text-stone-800 dark:text-stone-200">
             Course number
           </span>
           <input
@@ -128,7 +128,7 @@ export const CourseForm = ({ course, onCancel, onSubmit }: CourseFormProps) => {
           )}
         </label>
         <label className="block">
-          <span className="mb-2 block text-sm font-medium text-stone-800">
+          <span className="mb-2 block text-sm font-medium text-stone-800 dark:text-stone-200">
             Meeting times
           </span>
           <input
@@ -159,14 +159,14 @@ export const CourseForm = ({ course, onCancel, onSubmit }: CourseFormProps) => {
         type="button"
         onClick={onCancel}
         disabled={isSubmitting}
-        className="mt-8 rounded-lg border border-stone-300 px-5 py-2 text-sm font-medium text-stone-800 transition-colors hover:bg-stone-100"
+        className="mt-8 rounded-lg border border-stone-300 px-5 py-2 text-sm font-medium text-stone-800 transition-colors hover:bg-stone-100 dark:border-stone-700 dark:text-stone-200 dark:hover:bg-stone-800"
       >
         Cancel
       </button>
       <button
         type="submit"
         disabled={isSubmitting}
-        className="ml-3 mt-8 rounded-lg bg-stone-950 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-stone-800 disabled:opacity-50"
+        className="ml-3 mt-8 rounded-lg bg-stone-950 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-stone-800 disabled:opacity-50 dark:bg-stone-100 dark:text-stone-950 dark:hover:bg-white"
       >
         {isSubmitting ? 'Saving...' : 'Submit'}
       </button>

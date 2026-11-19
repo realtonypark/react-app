@@ -39,13 +39,13 @@ export const AuthBanner = ({ user }: AuthBannerProps) => {
   };
 
   return (
-    <header className="flex items-center justify-between gap-4 border-b border-stone-200 bg-white px-8 py-3 text-sm">
+    <header className="flex items-center justify-between gap-4 border-b border-stone-200 bg-white px-8 py-3 text-sm dark:border-stone-800 dark:bg-stone-900">
       {user ? (
-        <p className="text-stone-700">
+        <p className="text-stone-700 dark:text-stone-300">
           Signed in as <span className="font-medium">{user.displayName ?? user.email}</span>
         </p>
       ) : (
-        <p className="text-stone-700">
+        <p className="text-stone-700 dark:text-stone-300">
           Sign in to access administrator course editing.
         </p>
       )}
@@ -53,7 +53,7 @@ export const AuthBanner = ({ user }: AuthBannerProps) => {
         type="button"
         onClick={() => void (user ? handleSignOut() : handleSignIn())}
         disabled={isSubmitting}
-        className="rounded-md border border-stone-300 px-3 py-2 font-medium text-stone-800 transition-colors hover:bg-stone-100 disabled:opacity-50"
+        className="rounded-md border border-stone-300 px-3 py-2 font-medium text-stone-800 transition-colors hover:bg-stone-100 disabled:opacity-50 dark:border-stone-700 dark:text-stone-200 dark:hover:bg-stone-800"
       >
         {isSubmitting ? 'Working...' : user ? 'Sign out' : 'Sign in with Google'}
       </button>
