@@ -1,0 +1,50 @@
+src/components/TermPage.tsx
+  s_a134f7c3cc800d::t_116f4d7c2f7ca1 10,56-63,66-77
+  s_47a1e75c1dc9dd::t_fe3c5277aae9e6 48
+src/utils/exportSchedule.ts
+  s_a134f7c3cc800d::t_116f4d7c2f7ca1 1-49
+src/components/TermPage.test.tsx
+  s_a134f7c3cc800d::t_71847982c7649b 3
+  s_a134f7c3cc800d::t_116f4d7c2f7ca1 20-43
+src/utils/exportSchedule.test.ts
+  s_a134f7c3cc800d::t_71847982c7649b 1-26
+docs/authentication.md
+  s_47a1e75c1dc9dd::t_ba36a9a3e5bb7e 2-3,6-7,12,18-29,36-37,39,48-50
+src/App.tsx
+  s_47a1e75c1dc9dd::t_fe3c5277aae9e6 6,15-19,61,65-66,73
+database.rules.json
+  s_47a1e75c1dc9dd::t_fe3c5277aae9e6 3-14
+src/services/adminService.ts
+  s_47a1e75c1dc9dd::t_fe3c5277aae9e6 1-7
+src/hooks/useAdminStatus.ts
+  s_47a1e75c1dc9dd::t_fe3c5277aae9e6 1-10,17,19-32,34-37,39-55,62
+  s_47a1e75c1dc9dd::t_f548e1884a0d1d 11-16,18,33,38,56-61
+docs/export.md
+  s_a134f7c3cc800d::t_24d352c7ad595f 1
+src/components/AuthBanner.tsx
+  s_47a1e75c1dc9dd::t_a3d1d9e1080901 48-50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0ac56d178c43971a445b4132e009a4d63e301f64",
+  "prompts": {},
+  "sessions": {
+    "s_47a1e75c1dc9dd": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "af3800c4-27c0-49bd-8754-2244186e6a3c",
+        "model": "unknown"
+      },
+      "human_author": "realtonypark <realtonypark@gmail.com>"
+    },
+    "s_a134f7c3cc800d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f1d88c95-e665-467d-943d-3f394db81270",
+        "model": "unknown"
+      },
+      "human_author": "realtonypark <realtonypark@gmail.com>"
+    }
+  }
+}
