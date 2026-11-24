@@ -79,6 +79,7 @@ const App = () => {
           schedule={schedule}
           scheduleId={scheduleId}
           canEdit={isAdmin}
+          userId={user?.uid}
         />
       )}
       <button

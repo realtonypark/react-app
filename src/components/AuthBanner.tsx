@@ -46,7 +46,7 @@ export const AuthBanner = ({ user }: AuthBannerProps) => {
         </p>
       ) : (
         <p className="text-stone-700 dark:text-stone-300">
-          Sign in to access administrator course editing.
+          Sign in to add personal course notes or access administrator editing.
         </p>
       )}
       <button

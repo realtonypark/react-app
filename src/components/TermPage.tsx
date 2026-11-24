@@ -8,23 +8,27 @@ import { TermSelector } from './TermSelector';
 import { hasTimeConflict } from '../utils/timeConflicts';
 import { saveCourse, type Course } from '../services/courseService';
 import { downloadScheduleText } from '../utils/exportSchedule';
+import { useCourseNotes } from '../hooks/useCourseNotes';
 
 interface TermPageProps {
   schedule: Schedule;
   scheduleId?: string;
   canEdit?: boolean;
+  userId?: string;
 }
 
 export const TermPage = ({
   schedule,
   scheduleId = 'CS-2018-2019',
   canEdit = false,
+  userId,
 }: TermPageProps) => {
   const [courses, setCourses] = useState(schedule.courses);
   const [selectedTerm, setSelectedTerm] = useState<Term>('Fall');
   const [selectedClasses, setSelectedClasses] = useState<string[]>([]);
   const [isPlanOpen, setIsPlanOpen] = useState(false);
   const [editingCourseKey, setEditingCourseKey] = useState<string | null>(null);
+  const courseNotes = useCourseNotes(scheduleId, userId);
 
   const toggleClass = (courseKey: string) => {
     setSelectedClasses((currentSelectedClasses) => {
@@ -93,6 +97,11 @@ export const TermPage = ({
               Course plan
             </button>
           </div>
+          {courseNotes.error && (
+            <p role="alert" className="mb-4 text-sm text-red-700">
+              {courseNotes.error}
+            </p>
+          )}
           <CourseList
             courses={courses}
             selectedTerm={selectedTerm}
@@ -100,6 +109,10 @@ export const TermPage = ({
             onClassToggle={toggleClass}
             onEditCourse={setEditingCourseKey}
             canEdit={canEdit}
+            userId={userId}
+            notes={courseNotes.notes}
+            onSaveNote={courseNotes.saveNote}
+            onDeleteNote={courseNotes.removeNote}
           />
         </>
       )}

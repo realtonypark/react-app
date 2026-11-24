@@ -1,6 +1,8 @@
 import type { Course } from '../services/courseService';
+import type { CourseNote as CourseNoteData } from '../services/courseService';
 import type { Term } from '../types/course';
 import { hasTimeConflict } from '../utils/timeConflicts';
+import { CourseNote } from './CourseNote';
 
 interface CourseListProps {
   courses: Record<string, Course>;
@@ -9,6 +11,10 @@ interface CourseListProps {
   onClassToggle: (courseKey: string) => void;
   onEditCourse: (courseKey: string) => void;
   canEdit: boolean;
+  userId?: string;
+  notes: Record<string, CourseNoteData>;
+  onSaveNote: (courseKey: string, text: string) => Promise<void>;
+  onDeleteNote: (courseKey: string) => Promise<void>;
 }
 
 export const CourseList = ({
@@ -18,6 +24,10 @@ export const CourseList = ({
   onClassToggle,
   onEditCourse,
   canEdit,
+  userId,
+  notes,
+  onSaveNote,
+  onDeleteNote,
 }: CourseListProps) => {
   const filteredCourses = Object.keys(courses).filter(
     (key) => courses[key].term === selectedTerm,
@@ -96,6 +106,13 @@ export const CourseList = ({
                 Edit
               </button>
             )}
+            <CourseNote
+              courseTitle={`${course.term} CS ${course.number}`}
+              note={notes[key]}
+              isSignedIn={Boolean(userId)}
+              onSave={(text) => onSaveNote(key, text)}
+              onDelete={() => onDeleteNote(key)}
+            />
           </li>
         );
       })}

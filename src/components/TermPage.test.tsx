@@ -1,8 +1,22 @@
 import '@testing-library/jest-dom/vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import type { Schedule } from '../services/courseService';
 import { TermPage } from './TermPage';
+
+vi.mock('../services/courseService', async (importOriginal) => {
+  const actual =
+    await importOriginal<typeof import('../services/courseService')>();
+  return {
+    ...actual,
+    fetchCourseNotes: vi.fn().mockResolvedValue({}),
+    saveCourseNote: vi.fn(
+      async (_scheduleId: string, _userId: string, _courseKey: string, text: string) =>
+        ({ text: text.trim(), updatedAt: '2026-11-23T20:20:40.682Z' }),
+    ),
+    deleteCourseNote: vi.fn().mockResolvedValue(undefined),
+  };
+});
 
 const schedule: Schedule = {
   title: 'Test schedule',
@@ -97,5 +111,37 @@ describe('TermPage time conflicts', () => {
     render(<TermPage schedule={schedule} />);
 
     expect(screen.queryByRole('button', { name: 'Edit' })).not.toBeInTheDocument();
+  });
+
+  it('creates, edits, and deletes a personal course note', async () => {
+    render(<TermPage schedule={schedule} userId="test-user" />);
+
+    await waitFor(() =>
+      expect(screen.getAllByRole('button', { name: 'Add note' })).toHaveLength(3),
+    );
+
+    fireEvent.click(screen.getAllByRole('button', { name: 'Add note' })[0]);
+    fireEvent.change(screen.getByLabelText('Note for Fall CS 101'), {
+      target: { value: 'Review linked lists before the exam.' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Save note' }));
+
+    expect(await screen.findByRole('button', { name: 'Edit note' })).toBeVisible();
+    expect(screen.getByText('Review linked lists before the exam.')).toBeVisible();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Edit note' }));
+    fireEvent.change(screen.getByLabelText('Note for Fall CS 101'), {
+      target: { value: 'Updated note.' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Save note' }));
+
+    expect(await screen.findByRole('button', { name: 'Edit note' })).toBeVisible();
+    expect(screen.getByText('Updated note.')).toBeVisible();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Delete note' }));
+
+    await waitFor(() =>
+      expect(screen.getAllByRole('button', { name: 'Add note' })).toHaveLength(3),
+    );
   });
 });

@@ -11,6 +11,14 @@
     "schedules": {
       ".read": true,
       ".write": "auth != null && root.child('admins').child(auth.uid).val() == true"
+    },
+    "userNotes": {
+      "$uid": {
+        "$scheduleId": {
+          ".read": "auth != null && auth.uid == $uid",
+          ".write": "auth != null && auth.uid == $uid"
+        }
+      }
     }
   }
 }

@@ -1,5 +1,5 @@
 import { collection, getDocs } from 'firebase/firestore';
-import { ref, update } from 'firebase/database';
+import { get, ref, remove, set, update } from 'firebase/database';
 import { db, realtimeDb } from './firebase';
 
 export interface Course {
@@ -16,6 +16,11 @@ export interface Schedule {
 
 export interface CourseData {
   schedules: Record<string, Schedule>;
+}
+
+export interface CourseNote {
+  text: string;
+  updatedAt: string;
 }
 
 const isCourse = (value: unknown): value is Course => {
@@ -83,4 +88,57 @@ export const saveCourse = async (
   course: Course,
 ): Promise<void> => {
   await update(ref(realtimeDb, `schedules/${scheduleId}/courses/${courseKey}`), course);
+};
+
+export const fetchCourseNotes = async (
+  scheduleId: string,
+  userId: string,
+): Promise<Record<string, CourseNote>> => {
+  const snapshot = await get(ref(realtimeDb, `userNotes/${userId}/${scheduleId}`));
+  if (!snapshot.exists()) {
+    return {};
+  }
+
+  const value = snapshot.val();
+  if (!value || typeof value !== 'object') {
+    throw new Error('Firebase returned invalid course notes.');
+  }
+
+  const notes: Record<string, CourseNote> = {};
+  for (const courseKey of Object.keys(value)) {
+    const rawNote = value[courseKey];
+    if (
+      rawNote &&
+      typeof rawNote === 'object' &&
+      'text' in rawNote &&
+      typeof rawNote.text === 'string' &&
+      'updatedAt' in rawNote &&
+      typeof rawNote.updatedAt === 'string'
+    ) {
+      notes[courseKey] = {
+        text: rawNote.text,
+        updatedAt: rawNote.updatedAt,
+      };
+    }
+  }
+  return notes;
+};
+
+export const saveCourseNote = async (
+  scheduleId: string,
+  userId: string,
+  courseKey: string,
+  text: string,
+): Promise<CourseNote> => {
+  const note = { text: text.trim(), updatedAt: new Date().toISOString() };
+  await set(ref(realtimeDb, `userNotes/${userId}/${scheduleId}/${courseKey}`), note);
+  return note;
+};
+
+export const deleteCourseNote = async (
+  scheduleId: string,
+  userId: string,
+  courseKey: string,
+): Promise<void> => {
+  await remove(ref(realtimeDb, `userNotes/${userId}/${scheduleId}/${courseKey}`));
 };

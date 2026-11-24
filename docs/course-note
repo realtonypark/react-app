@@ -1,0 +1,1 @@
+Implement a course note feature, which is that a user can add a description or notes for each course card. This is added to the database and stored, of course. Users can create notes, delete notes, and edit the notes.
