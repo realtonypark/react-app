@@ -1,0 +1,43 @@
+src/components/AuthBanner.tsx
+  s_6d05e907df9701::t_0730532d314efc 49
+src/components/CourseNote.tsx
+  s_6d05e907df9701::t_a93eee77195632 1-30,63,68
+  s_6d05e907df9701::t_e7b907ad0eda87 31-62,64-67,69-145
+src/services/courseService.ts
+  s_6d05e907df9701::t_a93eee77195632 2,21-25,92-107,110-144
+  s_6d05e907df9701::t_70f30dbfc0b962 108-109
+src/components/CourseList.tsx
+  s_6d05e907df9701::t_e7b907ad0eda87 2,5,14-17,27-30,109-115
+src/components/TermPage.test.tsx
+  s_6d05e907df9701::t_a63f651206d159 2,7-20,115-128,131-137,140-145
+  s_6d05e907df9701::t_70f30dbfc0b962 129-130
+  s_6d05e907df9701::t_6a274d64b22cd7 138-139
+  s_6d05e907df9701::t_7401baad4095fc 146
+src/components/TermPage.tsx
+  s_6d05e907df9701::t_e7b907ad0eda87 11,17,24,31,112-115
+  s_6d05e907df9701::t_5896dfcbb4e845 100-104
+src/hooks/useCourseNotes.ts
+  s_6d05e907df9701::t_6a274d64b22cd7 38-39
+  s_6d05e907df9701::t_a93eee77195632 1-26,32-37,40-92
+  s_6d05e907df9701::t_70f30dbfc0b962 27-31
+src/App.tsx
+  s_6d05e907df9701::t_e7b907ad0eda87 82
+database.rules.json
+  s_6d05e907df9701::t_e7b907ad0eda87 14-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b0fd41ac9301046e894eabc162f2216a24ec1f34",
+  "prompts": {},
+  "sessions": {
+    "s_6d05e907df9701": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "a818a821-6ddc-4384-b333-d32c75039e03",
+        "model": "unknown"
+      },
+      "human_author": "realtonypark <realtonypark@gmail.com>"
+    }
+  }
+}
